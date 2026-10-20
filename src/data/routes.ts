@@ -38,7 +38,7 @@ export const routes: TravelRoute[] = [
   {
     id: "safari-adventures", number: "01", name: "Safari adventures", shortName: "Safari", location: "Greater Kruger & reserves", label: "Into the wild",
     summary: "Early morning light. A rustle in the bush. The kind of family stories that begin where the road ends.",
-    photo: photography.safari,
+    photo: photography.safariRoute,
     regions: [
       { id: "sabi-sands", name: "Sabi Sands Game Reserve", lodges: [
         lodge("Singita Ebony", "A distinctive starting point for an unhurried Sabi Sands escape."),

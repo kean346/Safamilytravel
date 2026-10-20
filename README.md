@@ -8,6 +8,8 @@ Home Page for SA Family Travel, built with Next.js App Router, React, strict Typ
 
 [View the mobile preview](docs/previews/mobile.png)
 
+![Featured travel routes](docs/previews/routes-desktop.png)
+
 ## Develop
 
 Use Node.js 22 or later (validated with Node 24.19.0 and npm 11.9.0).
@@ -68,16 +70,17 @@ After pushing, check that the newest deployment uses the new commit and reaches 
 
 The header and footer now include `public/images/brand-icon.png`, a transparent, image-tool-prepared derivative of the attached elephant icon. This is a faithful visual preparation, not the original uploaded binary, and can differ in small details. Replace it with the owner's original PNG or SVG when available for an exact brand match; its path is configured in `src/data/site.ts`.
 
-The user approved Unsplash imagery for the Home Page. Six photos were downloaded successfully with TLS verification and inspected visually. The photos are relevant journey inspiration; none is presented as a photograph of a listed lodge. Cape Town's Table Mountain is recognisable; the forest and wildlife photos do not assert a specific South African shooting location.
+The user approved Unsplash imagery for the Home Page. The photos were downloaded with TLS verification and inspected visually, including the portrait crops used in the route cards. The photos are journey inspiration; none is presented as a photograph of a listed lodge. Cape Town's Table Mountain is recognisable; the general coastal and wildlife imagery does not assert a specific South African shooting location.
 
 | Local filename | Unsplash source identifier | Content |
 | --- | --- | --- |
 | `elephants.jpg` | `photo-1564760055775-d63b17a55c44` | Elephants in grassland at sunset; first hero scene |
-| `safari.jpg` | `photo-1516426122078-c23e76319801` | Safari vehicle and acacia trees at sunset |
+| `safari.jpg` | `photo-1516426122078-c23e76319801` | Safari vehicle and acacia trees at sunset; story section |
+| `safari-zebra.jpg` | `photo-1515205244153-fce4e5d8bc49` | Zebra in golden savanna grass; safari route card |
 | `cape.jpg` | `photo-1580060839134-75a5edca2e99` | Cape Town and Table Mountain |
-| `garden.jpg` | `photo-1441974231531-c6227db76b6e` | Forest path and filtered light; general forest inspiration |
+| `garden-coast.jpg` | `photo-1547036967-23d11aacaee0` | Aerial rocky coast, beach and turquoise water; coastal inspiration |
 | `whale.jpg` | `photo-1568430462989-44163eb1752f` | Breaching humpback whale |
-| `extension.jpg` | `photo-1546182990-dffeafbe841d` | Male lion with green foliage |
+| `safari-cheetah.jpg` | `photo-1624958319297-d1aa3a41378e` | Cheetah seated in open grassland; safari extensions card |
 
 Full source URLs are retained in `src/data/photography.ts`. To refresh an asset, use its source URL and preserve its filename. In this cloud machine, `node --use-env-proxy` (Node 24) successfully downloads through the provided HTTP/HTTPS proxy with the existing certificate trust. Curl requests returned proxy 403, while Next.js server-side fetch without proxy activation failed DNS resolution. Do not disable TLS verification or remove proxy configuration. Unsplash destinations are saved in the environment network draft for refreshes; saving a draft alone does not apply or publish it.
 
