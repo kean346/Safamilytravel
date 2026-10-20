@@ -45,6 +45,14 @@ PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e
 
 On another machine, install Playwright Chromium with `npx playwright install chromium`, then run `npm run test:e2e` without the executable override. The 20 browser checks exercise desktop and mobile layouts, all seven photographic placements, manual and automatic hero selection, pause/resume, reduced motion, image fallback behaviour, all five route inventories, keyboard tabs, lodge enquiry prefilling, form validation, clipboard copying, mobile navigation and 404 behaviour. Screenshots are generated under ignored `test-results/`, including `landing-desktop.png` and `landing-mobile.png`.
 
+## Vercel deployment
+
+`vercel.json` explicitly selects the Next.js framework, installs with `npm ci`, builds with `npm run build`, and uses `.next` as the framework output. These settings prevent a stale framework or static-output override from treating the project as a generic static site.
+
+In the Vercel project, connect `kean346/Safamilytravel`, select production branch `main`, and keep Root Directory at the repository root where `package.json` and `vercel.json` live. Node.js 24.x matches the tested runtime. The Root Directory is a project setting and cannot be corrected by this file if the wrong folder is selected.
+
+After pushing, check that the newest deployment uses the new commit and reaches **Ready**. Open the production domain `https://safamilytravel.vercel.app/` after it is assigned to that deployment. If Git-triggered deployment is disabled, redeploy the latest `main` commit from the Vercel dashboard. A failed build needs its build-log error resolved before the site can serve the Home Page. The repository does not need a catch-all rewrite or an `index.html` file for Next.js routing.
+
 ## Content and components
 
 - `src/data/routes.ts`: complete inventory of 5 routes, 10 regions and 36 properties; typed image, description and family-note fields. Property age policies and amenities must be verified before adding them.
@@ -93,4 +101,4 @@ Direct submission requires a separate server-side email integration, secure prov
 - Connect a newsletter provider before collecting subscriptions. The current footer states that the newsletter is coming soon and offers Instagram instead.
 - Review the Home Page before implementing About, Contact or the full destinations explorer.
 - Review metadata and switch `robots` to indexing only when the public site is approved. This development version uses `noindex, nofollow`.
-- Website deployment has not been configured; the previews above show the implemented Home Page.
+- Verify the latest Vercel deployment reaches Ready and serves the production domain; the previews above show the locally tested Home Page.
