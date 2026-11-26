@@ -9,7 +9,6 @@ test("home loads without errors, broken assets or horizontal page overflow", asy
   page.on("pageerror", (error) => errors.push(error.message));
   await page.reload();
   await expect(page.getByRole("heading", { level: 1, name: "SA Family Travel" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Three ways to travel" })).toBeAttached();
   await expect(page.locator(".site-header .brand-icon")).toBeVisible();
   await expect(page.getByRole("link", { name: "SA Family Travel on Instagram (opens in a new tab)" })).toHaveAttribute("href", "https://www.instagram.com/safamilytravel_/");
   await page.evaluate(() => { for (const image of document.images) image.loading = "eager"; });
@@ -27,16 +26,17 @@ test("home loads without errors, broken assets or horizontal page overflow", asy
   await page.screenshot({ path: `test-results/home-${testInfo.project.name}.png`, fullPage: true });
 });
 
-test("the editorial opening leads through partners and three ways to all travel options", async ({ page }) => {
+test("the homepage shows one travel selector between partners and the family travel difference", async ({ page }) => {
   await expect(page.locator("#home .ed-letter").first()).toHaveCSS("animation-name", "none");
   await page.getByRole("link", { name: "Scroll to our trusted partners" }).click();
   await expect(page).toHaveURL(/#partners$/);
   await expect(page.getByRole("heading", { name: "Our trusted partners" })).toBeInViewport();
   await expect(page.locator("#partners")).toHaveCount(1);
   await expect(page.locator('#partners ul:not([aria-hidden]) img')).toHaveCount(24);
-  await expect(page.locator(".ed-services dt")).toHaveText(["Self-drive", "Fly-in safaris", "Guided tours"]);
-  await page.getByRole("link", { name: "Explore travel options" }).click();
-  await expect(page.getByRole("tab", { name: "Bespoke trips" })).toBeInViewport();
+  await expect(page.getByRole("heading", { name: "Three ways to travel" })).toHaveCount(0);
+  expect(await page.locator("main section[id]").evaluateAll(sections => sections.map(section => section.id)))
+    .toEqual(["home", "partners", "travel-options", "why-us", "routes", "our-story", "enquire"]);
+  await expect(page.locator("#travel-options [role=tab]")).toHaveCount(4);
 });
 
 test("unavailable route photographs reveal their local artwork", async ({ page }) => {

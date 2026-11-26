@@ -2,9 +2,8 @@
 
 import { useEffect, useRef, type CSSProperties } from "react";
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { PartnerLogos } from "./partner-logos";
-import { travelOptions } from "@/data/site";
 import { photography } from "@/data/photography";
 import "./editorial-opening.css";
 
@@ -19,7 +18,6 @@ export function EditorialOpening() {
   useEffect(() => {
     const root = opening.current!;
     const hero = root.querySelector<HTMLElement>(".ed-hero")!;
-    const portrait = root.querySelector<HTMLElement>(".ed-portrait")!;
     const photo = root.querySelector<HTMLImageElement>(".ed-photo")!;
     let active = true;
     // Start the title delay only after the elephants can actually be painted.
@@ -38,8 +36,6 @@ export function EditorialOpening() {
       const progress = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / hero.offsetHeight));
       hero.style.setProperty("--drift", (progress * 18) + "%");
       hero.style.setProperty("--melt", String(Math.min(1, progress * 1.5)));
-      const top = portrait.getBoundingClientRect().top;
-      portrait.style.setProperty("--pan", Math.max(-6, Math.min(6, (innerHeight / 2 - top) / innerHeight * 9)) + "%");
     }
     function scroll() { if (!motion.matches && !frame) frame = requestAnimationFrame(draw); }
     scroll();
@@ -67,17 +63,6 @@ export function EditorialOpening() {
         <p>From Cape Town to the bush, these are the people who welcome our families.</p>
       </div>
       <PartnerLogos />
-    </section>
-
-    <section className="ed-journeys ed-reveal" aria-labelledby="ed-journey-title">
-      <div className="ed-grid">
-        <div className="ed-title-column"><h2 id="ed-journey-title" aria-label="Three ways to travel"><Letters word="Three" /><br /><Letters word="ways" start={5} /> <Letters word="to" start={9} /><br /><Letters word="travel" start={11} /></h2>
-        <a className="text-link" href="#travel-options">Explore travel options <ArrowUpRight size={16} /></a></div>
-        <dl className="ed-services">{travelOptions.slice(0, 3).map((option, index) =>
-          <div key={option.id} style={{ "--i": index } as CSSProperties}><dt>{option.title}</dt><dd>{["Take the wheel. We plan the route and book the stops along the way.", "Fly between lodges and spend more of your days out in the bush.", "Head out with a local guide who knows where to stop and what to look for."][index]}</dd></div>
-        )}</dl>
-        <div className="ed-portrait"><Image src={photography.safari.src} alt={photography.safari.alt} fill sizes="(max-width: 760px) 90vw, 31vw" /></div>
-      </div>
     </section>
   </div>;
 }

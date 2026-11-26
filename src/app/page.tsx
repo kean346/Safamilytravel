@@ -19,14 +19,14 @@ export default function Home() {
   return <><Header /><main id="main-content">
     <EditorialOpening />
 
+    <section className="options-section section" id="travel-options" aria-labelledby="options-title"><div className="container"><Reveal className="section-heading"><div><p className="eyebrow">ONE BEAUTIFUL COUNTRY. ENDLESS POSSIBILITIES.</p><h2 id="options-title">Your journey.<br className="mobile-break" /> <em>Your way.</em></h2></div><p>Follow your own compass. We’ll take care of the details.</p></Reveal><TravelOptions /></div></section>
+
     <div className="promise-strip"><div className="container promise-inner"><span><Compass size={18} aria-hidden="true" />Local knowledge. Personal care.</span><span><Heart size={18} aria-hidden="true" />Thoughtfully made for families.</span><span><Sun size={19} aria-hidden="true" />Extraordinary from start to finish.</span></div></div>
 
     <section className="section why-section container" id="why-us" aria-labelledby="why-title">
       <Reveal className="why-intro"><p className="eyebrow">THE SA FAMILY TRAVEL DIFFERENCE</p><h2 id="why-title">More than a holiday.<br />A little piece of <em>forever.</em></h2><p>Some moments stay with you. Your child’s first elephant. An ocean that stretches forever. A story shared around the fire.</p><p>We bring those moments closer, with beautifully considered journeys through the South Africa we know and love.</p><a href="#enquire" className="text-link">Let’s make it yours <ArrowUpRight size={17} aria-hidden="true" /></a><div className="why-signoff"><span className="handwritten">Adventure, with heart.</span><span className="fine-line" /></div></Reveal>
       <Reveal className="why-reasons"><p className="eyebrow">WHY CHOOSE US?</p>{reasons.map((reason) => <article className="reason" key={reason.number}><span>{reason.number}</span><div><h3>{reason.title}</h3><p>{reason.text}</p></div></article>)}</Reveal>
     </section>
-
-    <section className="options-section section" id="travel-options" aria-labelledby="options-title"><div className="container"><Reveal className="section-heading"><div><p className="eyebrow">ONE BEAUTIFUL COUNTRY. ENDLESS POSSIBILITIES.</p><h2 id="options-title">Your journey.<br className="mobile-break" /> <em>Your way.</em></h2></div><p>Follow your own compass. We’ll take care of the details.</p></Reveal><TravelOptions /></div></section>
 
     <section className="section routes-section" id="routes" aria-labelledby="routes-title"><div className="container"><Reveal className="section-heading"><div><p className="eyebrow">FIVE ROUTES. COUNTLESS STORIES.</p><h2 id="routes-title">Where will your story <em>take you?</em></h2></div><p>From the first light over the bush to the last light on the coast. Choose a route to explore its handpicked stays.</p></Reveal><RouteExplorer /></div></section>
 
