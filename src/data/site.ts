@@ -47,4 +47,29 @@ export const travelOptions = [
   },
 ] as const;
 
-export const partners = ["Madikwe Hills", "Morukuru Family", "Royal Malewane", "Sabi Sabi", "Singita"];
+export const partners = [
+  { name: "Pezula Private Residence Club", logo: "/images/partners/pezula.png" },
+  { name: "Cape Grace", logo: "/images/partners/cape-grace.png" },
+  { name: "Morukuru Family", logo: "/images/partners/morukuru.png" },
+  { name: "The Silo Hotel", logo: "/images/partners/the-silo.png" },
+  { name: "Birkenhead House", logo: "/images/partners/birkenhead-house.png" },
+  { name: "Royal Malewane", logo: "/images/partners/royal-malewane.png" },
+  { name: "Monwana", logo: "/images/partners/monwana.png" },
+  { name: "Chapman's Peak Beach Hotel", logo: "/images/partners/chapmans-peak.png" },
+  { name: "Madikwe Hills", logo: "/images/partners/madikwe-hills.png" },
+  { name: "Singita", logo: "/images/partners/singita.png" },
+  { name: "Sabi Sabi", logo: "/images/partners/sabi-sabi.png" },
+  { name: "The Royal Portfolio", logo: "/images/partners/the-royal-portfolio.png" },
+  { name: "Kings Camp", logo: "/images/partners/kings-camp.png" },
+  { name: "&Beyond", logo: "/images/partners/beyond.png" },
+  { name: "Simbavati", logo: "/images/partners/simbavati.png" },
+  { name: "Tintswalo Atlantic", logo: "/images/partners/tintswalo-atlantic.png" },
+  { name: "Tintswalo Safari", logo: "/images/partners/tintswalo-safari.png" },
+  { name: "The Plettenberg", logo: "/images/partners/the-plettenberg.png" },
+  { name: "Delaire Graff", logo: "/images/partners/delaire-graff.png" },
+  { name: "Madikwe Safari Lodge", logo: "/images/partners/madikwe-safari-lodge.png" },
+  { name: "Grootbos", logo: "/images/partners/grootbos.png" },
+  { name: "Rare Earth", logo: "/images/partners/rare-earth.png" },
+  { name: "The Twelve Apostles", logo: "/images/partners/the-twelve-apostles.png" },
+  { name: "The Oyster Box", logo: "/images/partners/the-oyster-box.png" },
+];
