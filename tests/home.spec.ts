@@ -8,8 +8,8 @@ test("home loads without errors, broken assets or horizontal page overflow", asy
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.reload();
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Wild places.Wonderful memories.");
-  await expect(page.locator(".cinematic-hero")).toHaveAttribute("aria-roledescription", "carousel");
+  await expect(page.getByRole("heading", { level: 1, name: "SA Family Travel" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Three ways to travel" })).toBeAttached();
   await expect(page.locator(".site-header .brand-icon")).toBeVisible();
   await expect(page.getByRole("link", { name: "SA Family Travel on Instagram (opens in a new tab)" })).toHaveAttribute("href", "https://www.instagram.com/safamilytravel_/");
   await page.evaluate(() => { for (const image of document.images) image.loading = "eager"; });
@@ -20,47 +20,32 @@ test("home loads without errors, broken assets or horizontal page overflow", asy
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   expect(errors).toEqual([]);
   const states = await page.locator(".editorial-media").evaluateAll((elements) => elements.map((element) => element.getAttribute("data-media-state")));
-  expect(states.length).toBe(7);
+  expect(states.length).toBe(5);
   expect(states.every((state) => state === "photo")).toBe(true);
-  console.log(`${testInfo.project.name}: all seven photographic placements loaded from local assets.`);
+  console.log(`${testInfo.project.name}: all route photographs loaded from local assets.`);
   await page.screenshot({ path: `test-results/landing-${testInfo.project.name}.png` });
   await page.screenshot({ path: `test-results/home-${testInfo.project.name}.png`, fullPage: true });
 });
 
-test("hero destinations can be selected with reduced motion", async ({ page }) => {
-  await expect(page.locator(".cinema-pan")).toHaveCSS("animation-name", "none");
-  await expect(page.getByRole("button", { name: "Pause destination slideshow" })).not.toBeVisible();
-  const cape = page.getByRole("button", { name: "Show Cape Town & surrounds", exact: true });
-  await cape.click();
-  await expect(cape).toHaveAttribute("aria-pressed", "true");
-  await expect(page.locator(".hero-scene")).toHaveAttribute("aria-label", "Cape Town & surrounds");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Wild places.Wonderful memories.");
+test("the editorial opening leads through partners and three ways to all travel options", async ({ page }) => {
+  await expect(page.locator("#home .ed-letter").first()).toHaveCSS("animation-name", "none");
+  await page.getByRole("link", { name: "Scroll to our trusted partners" }).click();
+  await expect(page).toHaveURL(/#partners$/);
+  await expect(page.getByRole("heading", { name: "Our trusted partners" })).toBeInViewport();
+  await expect(page.locator("#partners")).toHaveCount(1);
+  await expect(page.locator('#partners ul:not([aria-hidden]) img')).toHaveCount(24);
+  await expect(page.locator(".ed-services dt")).toHaveText(["Self-drive", "Fly-in safaris", "Guided tours"]);
+  await page.getByRole("link", { name: "Explore travel options" }).click();
+  await expect(page.getByRole("tab", { name: "Bespoke trips" })).toBeInViewport();
 });
 
-test("hero slideshow pauses, resumes, and stops after manual selection", async ({ page }) => {
-  await page.clock.install();
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.getByRole("button", { name: "Pause destination slideshow" }).click();
-  await page.clock.fastForward(20000);
-  await expect(page.getByRole("button", { name: "Show Safari adventures", exact: true })).toHaveAttribute("aria-pressed", "true");
-  await page.getByRole("button", { name: "Play destination slideshow" }).click();
-  await page.clock.fastForward(9000);
-  await expect(page.getByRole("button", { name: "Show Cape Town & surrounds", exact: true })).toHaveAttribute("aria-pressed", "true");
-  await page.getByRole("button", { name: "Show The Whale Route", exact: true }).click();
-  await page.clock.fastForward(20000);
-  await expect(page.getByRole("button", { name: "Show The Whale Route", exact: true })).toHaveAttribute("aria-pressed", "true");
-  await expect(page.getByRole("button", { name: "Play destination slideshow" })).toBeVisible();
-});
-
-test("unavailable photographs reveal the local wildlife artwork", async ({ page }) => {
-  await page.route(/\/_next\/image\?url=%2Fimages%2Fphotography%2F/, (route) => route.fulfill({ status: 503, body: "Photograph temporarily unavailable" }));
+test("unavailable route photographs reveal their local artwork", async ({ page }) => {
+  await page.route(/\/_next\/image\?url=%2Fimages%2Fphotography%2F/, route => route.fulfill({ status: 503 }));
   await page.reload();
-  await expect(page.locator(".hero-scene .editorial-media")).toHaveAttribute("data-media-state", "artwork");
-  const wildlife = page.getByRole("img", { name: "Original wildlife artwork of an elephant and calf in golden evening light" }).first();
-  await expect(wildlife).toBeVisible();
-  expect(await wildlife.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
-  await expect(page.locator(".hero-media-credit")).toHaveText("Original wildlife artwork");
-  await expect(page.locator(".hero-scene .editorial-photo")).toHaveCount(0);
+  const firstRoute = page.locator(".route-card").first();
+  await firstRoute.scrollIntoViewIfNeeded();
+  await expect(firstRoute.locator(".editorial-media")).toHaveAttribute("data-media-state", "artwork");
+  await expect(firstRoute.getByRole("img")).toBeVisible();
 });
 
 test("all five routes reveal the correct regions and complete property counts", async ({ page }) => {
